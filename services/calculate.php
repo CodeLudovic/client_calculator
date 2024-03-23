@@ -2,13 +2,13 @@
 
 $numericRegex = '/^-?\d*\.?\d+$/';
 
-if (isset($_POST['numero1']) && isset($_POST['numero2']) && isset($_POST['operacion'])) {
+if (isset($_GET['numero1']) && isset($_GET['numero2']) && isset($_GET['operacion'])) {
     // Obtener los valores enviados desde el frontend
-    $num1 = floatval($_POST['numero1']);
-    $num1 = floatval($_POST['numero2']);
-    $operacion = $_POST['operacion'];
+    $num1 = floatval($_GET['numero1']);
+    $num2 = floatval($_GET['numero2']);
+    $operacion = $_GET['operacion'];
 
-    if ((!preg_match($numericRegex, $num1) || !preg_match($numericRegex, $num2)) || $_POST['operacion'] == '' || ($_POST['operacion'] === "division" && $_POST['numero2'] == 0)) {
+    if ((!preg_match($numericRegex, $num1) || !preg_match($numericRegex, $num2)) || $_GET['operacion'] == '' || ($_GET['operacion'] === "division" && $_GET['numero2'] == 0)) {
         echo "Debe suministrar la operacion e ingresar los números correctamente";
     }
 
@@ -30,11 +30,11 @@ if (isset($_POST['numero1']) && isset($_POST['numero2']) && isset($_POST['operac
         case 'division':
             if ($num2 !== 0) {
                 $url = $url_base . 'division?a=' . $num1 . '&b=' . $num2;
-                break;
             } else {
-                $url = 'error';
-                break;
+                echo "No se puede dividir por cero.";
+                exit;
             }
+            break;
         default:
             // Si la operación no es válida, devolver un mensaje de error
             echo 'Operación no válida';
@@ -54,7 +54,7 @@ if (isset($_POST['numero1']) && isset($_POST['numero2']) && isset($_POST['operac
         echo $response;
     } else {
         // Si la solicitud falla, devuelve un mensaj ed error
-        echo 'Error al realizar la solicitud a la API externa';
+        echo json_encode(array("error" => "Mensaje de error"));
     }
 } else {
     echo 'No se han proporcionado todos los parámetros requeridos o hay valores erróneos';
