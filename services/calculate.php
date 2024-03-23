@@ -16,7 +16,7 @@ if (isset($_POST['numero1']) && isset($_POST['numero2']) && isset($_POST['operac
     // Definir la URL base de la API externa
     $url_base = 'http://localhost/api/v1/';
 
-    // Definir la URL de la operación correspondiente según la selección del usuario
+    // Se define la URL de la operación correspondiente según la selección del usuario
     switch ($operacion) {
         case 'suma':
             $url = $url_base . 'addition?a=' . $num1 . '&b=' . $num2;
@@ -33,6 +33,7 @@ if (isset($_POST['numero1']) && isset($_POST['numero2']) && isset($_POST['operac
                 break;
             } else {
                 $url = 'error';
+                break;
             }
         default:
             // Si la operación no es válida, devolver un mensaje de error
@@ -47,9 +48,9 @@ if (isset($_POST['numero1']) && isset($_POST['numero2']) && isset($_POST['operac
         echo 'Operación no válida';
     }
 
-    // Verificar si la respuesta es válida
+    // Verifcar si la respuesta es válida
     if ($response !== false) {
-        // Enviar la respuesta al frontend
+        // Enviar la respuesta al front-end
         echo $response;
     } else {
         // Si la solicitud falla, devuelve un mensaj ed error
