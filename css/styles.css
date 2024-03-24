@@ -25,3 +25,11 @@ html {
 .visibleDiv {
     display: block;
 }
+
+.btn-hide {
+    display: none;
+}
+
+.btn-visible {
+    display: flex;
+}

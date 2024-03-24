@@ -111,8 +111,12 @@
 							>
 						</div>
 					</div>
-					<div id="button" class="mt-2">
+					<div id="button" class="d-flex flex-row mt-2 gap-2">
+						<!-- El evento es capturaddo por el JS por medio de un EventListener -->
 						<button class="btn btn-success" id="btns">Calcular</button>
+						<button class="btn btn-danger btn-hide" id="btnDelete">
+							Borrar
+						</button>
 					</div>
 					<div class="d-flex flex-row apierror" id="respuesta">
 						<label for="numero1" class="text-light text-center"

@@ -3,6 +3,7 @@ const URL_PROXY_SERVER = "http://localhost/api/services";
 let input1 = document.getElementById("numero1");
 let input2 = document.getElementById("numero2");
 let inputRes = document.getElementById("respuesta");
+let btnBorrar = document.getElementById("btnDelete");
 
 document.getElementById("btns").addEventListener("click", function (event) {
 	event.preventDefault();
@@ -41,15 +42,17 @@ document.getElementById("btns").addEventListener("click", function (event) {
 	}
 });
 
-input1.addEventListener("change", function (event) {
-	console.log("El valor del input ha cambiado a:", event.target.value);
+input1.addEventListener("change", function () {
 	inputRes.className = "";
 	inputRes.classList.add("hiddenDiv");
+	btnBorrar.classList.remove("btn-visible");
+	btnBorrar.classList.add("btn-hide");
 });
-input2.addEventListener("change", function (event) {
-	console.log("El valor del input ha cambiado a:", event.target.value);
+input2.addEventListener("change", function () {
 	inputRes.className = "";
 	inputRes.classList.add("hiddenDiv");
+	btnBorrar.classList.remove("btn-visible");
+	btnBorrar.classList.add("btn-hide");
 });
 
 function realizarOperacion(operacion) {
@@ -98,9 +101,29 @@ function realizarOperacion(operacion) {
 				"mt-2",
 				"visibleDiv"
 			);
+			btnBorrar.classList.remove("btn-hide");
+			btnBorrar.classList.add("btn-visible");
 		},
 		error: function (xhr, status, error) {
-			console.error(xhr.responseText);
+			alert("Error al realizar la solicitud: no es posible dividir entre 0");
 		},
 	});
+}
+
+function resetear() {
+	input1.value = "";
+	input2.value = "";
+	inputRes.style.visibility = "hidden";
+	inputRes.innerHTML = "";
+	inputRes.classList.remove(
+		"rounded-2",
+		"border-1",
+		"p-2",
+		"form-control",
+		"is-valid",
+		"width",
+		"mt-2",
+		"visibleDiv"
+	);
+	btnBorrar.classList.remove("btn-visiable");
 }
