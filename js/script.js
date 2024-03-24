@@ -1,10 +1,11 @@
 const URL_PROXY_SERVER = "http://localhost/api/services";
-import Swal from "sweetalert2";
+
+let input1 = document.getElementById("numero1");
+let input2 = document.getElementById("numero2");
+let inputRes = document.getElementById("respuesta");
+
 document.getElementById("btns").addEventListener("click", function (event) {
 	event.preventDefault();
-
-	let input1 = document.getElementById("numero1").value;
-	let input2 = document.getElementById("numero2").value;
 	let inputChecked = document.getElementsByName("inlineRadioOptions");
 	let operacion = "";
 
@@ -14,10 +15,14 @@ document.getElementById("btns").addEventListener("click", function (event) {
 			break;
 		}
 	}
-
-	if (input1 !== "" && input2 !== "" && !isNaN(input1) && !isNaN(input2)) {
+	if (
+		input1.value !== "" &&
+		input2.value !== "" &&
+		!isNaN(input1.value) &&
+		!isNaN(input2.value)
+	) {
 		if (operacion !== "") {
-			if (operacion === "division" && input2 === 0) {
+			if (operacion === "division" && input2.value === 0) {
 				alert(
 					"el divisor no puede ser nulo, vacio. letra, caracter o igual a cero."
 				);
@@ -36,11 +41,20 @@ document.getElementById("btns").addEventListener("click", function (event) {
 	}
 });
 
-function realizarOperacion(operacion) {
-	let input1 = document.getElementById("numero1").value;
-	let input2 = document.getElementById("numero2").value;
+input1.addEventListener("change", function (event) {
+	console.log("El valor del input ha cambiado a:", event.target.value);
+	inputRes.className = "";
+	inputRes.classList.add("hiddenDiv");
+});
+input2.addEventListener("change", function (event) {
+	console.log("El valor del input ha cambiado a:", event.target.value);
+	inputRes.className = "";
+	inputRes.classList.add("hiddenDiv");
+});
 
+function realizarOperacion(operacion) {
 	// Envío de datos mediante Fetch API -> Promesa, otra opcion mas practica de hacer peticiones y de nmanera nativa.
+	//
 	// fetch("../services/calculate.php", {
 	// 	method: "POST",
 	// 	headers: {
@@ -56,24 +70,34 @@ function realizarOperacion(operacion) {
 	// 		console.error("Error al realizar la solicitud:", error);
 	// 	});
 
+	// Envío de datos mediante XMLHttpRequest mediante AJAX.
 	$.ajax({
 		url: "./services/calculate.php",
 		method: "GET",
 		dataType: "json",
 		data: {
-			numero1: input1,
-			numero2: input2,
+			numero1: input1.value,
+			numero2: input2.value,
 			operacion: operacion,
 		},
 		success: function (response) {
 			const { message } = response;
 			if (message === "Ruta no encontrada") {
-				Swal.fire({
-					icon: "error",
-					title: "Oops...",
-					text: message,
-				});
+				alert("Error en la API Externa.");
 			}
+			const { respuesta } = response;
+			inputRes.style.visibility = "visible";
+			inputRes.innerHTML = respuesta;
+			inputRes.classList.add(
+				"rounded-2",
+				"border-1",
+				"p-2",
+				"form-control",
+				"is-valid",
+				"width",
+				"mt-2",
+				"visibleDiv"
+			);
 		},
 		error: function (xhr, status, error) {
 			console.error(xhr.responseText);

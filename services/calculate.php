@@ -25,7 +25,7 @@ if (isset($_GET['numero1']) && isset($_GET['numero2']) && isset($_GET['operacion
             $url = $url_base . 'substraction?a=' . $num1 . '&b=' . $num2;
             break;
         case 'multiplicacion':
-            $url = $url_base . 'mutiplication?a=' . $num1 . '&b=' . $num2;
+            $url = $url_base . 'multiplication?a=' . $num1 . '&b=' . $num2;
             break;
         case 'division':
             if ($num2 !== 0) {
