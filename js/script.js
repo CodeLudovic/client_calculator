@@ -109,21 +109,3 @@ function realizarOperacion(operacion) {
 		},
 	});
 }
-
-function resetear() {
-	input1.value = "";
-	input2.value = "";
-	inputRes.style.visibility = "hidden";
-	inputRes.innerHTML = "";
-	inputRes.classList.remove(
-		"rounded-2",
-		"border-1",
-		"p-2",
-		"form-control",
-		"is-valid",
-		"width",
-		"mt-2",
-		"visibleDiv"
-	);
-	btnBorrar.classList.remove("btn-visiable");
-}
