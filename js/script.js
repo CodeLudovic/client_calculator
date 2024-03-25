@@ -55,6 +55,16 @@ input2.addEventListener("change", function () {
 	btnBorrar.classList.add("btn-hide");
 });
 
+btnBorrar.addEventListener("click", function (event) {
+	event.preventDefault();
+	input1.value = "";
+	input2.value = "";
+	inputRes.className = "";
+	inputRes.classList.add("hiddenDiv");
+	btnBorrar.classList.remove("btn-visible");
+	btnBorrar.classList.add("btn-hide");
+});
+
 function realizarOperacion(operacion) {
 	// Envío de datos mediante Fetch API -> Promesa, otra opcion mas practica de hacer peticiones y de nmanera nativa.
 	//
